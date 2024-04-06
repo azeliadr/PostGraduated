@@ -1,6 +1,6 @@
 ## _PostGraduatedThesis_
 
-# K3 PROTECTION USING SPATIAL MODELLING APPROACH: CASE STUDY IN PT RAPP FOREST PLANTATION, RIAU PROVINCE
+# Identify Work Accident Risk Areas as an Effort to Protect K3 Using the GIS-AHP Approach
 **Azelia Dwi Rahmawati**
 <br /> _Department of Forest Management Science, Faculty of Forest and Environment, IPB University_
 
