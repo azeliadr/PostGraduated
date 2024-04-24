@@ -1,0 +1,13 @@
+# R Square
+library(MLmetrics)
+F1_Score(data$LAI, data$LAI_est, positive = NULL)
+
+# RMSE (The Root Mean Square Error)
+library(Metrics)
+RMSE(data$LAI, data$LAI_est)
+
+# MAPE (Mean Absolute Percentage Error)
+MAPE(data$LAI_est, data$LAI)
+
+# MAE (Mean Absolute Error)
+MAE(data$LAI, data$LAI_est)
