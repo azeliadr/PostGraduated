@@ -1,0 +1,18 @@
+library(readxl)
+library(MASS)
+library(randomForest)
+library(ggplot2)
+
+data <- read_xlsx("C:/Users/azeli/Documents/KULIAH/Magang APRIL/again.xlsx")
+View(data)
+set.seed(10)
+rf.fit <- randomForest(LAI~FCD, data = data, ntree=10000,
+                       keep.forest=FALSE, importance=TRUE)
+rf.fit
+
+lin <- lm(LAI~FCD, data=data)
+summary(lin)
+
+
+coba <- randomForest(LAI~FCD, data = data, ntree=100000,
+                     keep.forest=FALSE, importance=TRUE)
