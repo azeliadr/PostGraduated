@@ -1,0 +1,21 @@
+# Climate
+_R Studio_
+
+library(readxl)
+r_ch_azel <- read_excel("Document/temp/r_ch_azel.xlsx")
+View(r_ch_azel)
+
+data <- data.frame(r_ch_azel)
+
+# Mengubah kolom karakter menjadi double
+Tahun <- as.double(r_ch_azel)
+
+# Menampilkan hasil
+print(data)
+
+library(ggplot2)
+p<-ggplot(r_ch_azel, as(x=Tahun, y=CH, group=Stasiun)) + 
+geom_line(aes(color=Stasiun))+
+deom_point(aes(color=Stasiun))
+p + theme(legend.position="right", legend.background = element_rect(fill="#ECECEC",
+size, 1.5, linrtype="solid"))
