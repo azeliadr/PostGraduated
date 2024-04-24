@@ -13,9 +13,17 @@ Tahun <- as.double(r_ch_azel)
 # Menampilkan hasil
 print(data)
 
+# Kecepatan Angin
 library(ggplot2)
 p<-ggplot(r_ch_azel, as(x=Tahun, y=CH, group=Stasiun)) + 
 geom_line(aes(color=Stasiun))+
 deom_point(aes(color=Stasiun))
 p + theme(legend.position="right", legend.background = element_rect(fill="#ECECEC",
 size, 1.5, linrtype="solid"))
+
+install.packages(ggplot2)
+library(ggplot2)
+excel<- R_Kec_Angin_Time_Series
+
+ggplot(excel, aes(x=Tanggal, y=Kec_Angin, group=Stasiun))+
+  geom_line(aes(color=Stasiun))
