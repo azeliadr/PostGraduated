@@ -25,7 +25,7 @@ library(ggplot2)
 r_ch_azel$Bulan <- factor(r_ch_azel$Bulan, levels = c("Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agust", "Sep", "Okt", "Nov", "Des"))
 
 ggplot(r_ch_azel, aes(x=Date, y=Kec_angin, col=Stasiun, group=Stasiun)) + geom_line()+ 
-  xlab("Waktu") + ylab (Kecepatan Angin (m/s)") + theme_bw()
+  xlab("Waktu") + ylab (Kecepatan Angin (m/s)") + facet_grid(year~.) + theme_bw()
 
 ##Grafik Iklim Timeseries
 data <- data.frame(r_ch_azel)
