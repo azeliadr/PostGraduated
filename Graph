@@ -2,9 +2,32 @@
 _R Studio_
 
 library(readxl)
-r_ch_azel <- read_excel("Document/temp/r_ch_azel.xlsx")
+library(dplyr)
+data <- read_excel("r_ch_azel.xlsx")
+
+# import data
+r_ch_azel <- read_xlsx("Document/temp/r_ch_azel.xlsx")
+
 View(r_ch_azel)
 
+# Ubah format tanggal
+r_ch_azel$Tahun <- as.numeric(as.Date(paste(r_ch_azel$Tahun, "1" = "/")))
+
+r_ch_azel <- r_ch_azel%>%mutate(year=substr(Tahun,1,4)) %>% 
+  mutate_if(is.character,as.factor)
+
+# Tampilkan data dengan tanggal dalam format double
+print (data)
+
+install.packages("ggplot2")
+library(ggplot2)
+
+r_ch_azel$Bulan <- factor(r_ch_azel$Bulan, levels = c("Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agust", "Sep", "Okt", "Nov", "Des"))
+
+ggplot(r_ch_azel, aes(x=Date, y=Kec_angin, col=Stasiun, group=Stasiun)) + geom_line()+ 
+  xlab("Waktu") + ylab (Kecepatan Angin (m/s)") + theme_bw()
+
+##Grafik Iklim Timeseries
 data <- data.frame(r_ch_azel)
 
 # Mengubah kolom karakter menjadi double
