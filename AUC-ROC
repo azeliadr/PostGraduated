@@ -1,0 +1,21 @@
+# AUC - ROC
+roc_empirical_test <- ROCit::rocit(predictions,test$Kecelakaan_kerja,negref = 0)
+get_output_test <- plot(roc_empirical_test)
+get_output_test$`optimal Youden Index point`
+
+y <- na.omit(test$Kecelakaan_kerja)  # observed classes
+pdata=predict(rf,newdata=test,type="response")  # predicted probabilities
+pdata=predict(fullmodel,newdata=test)
+classes <- ifelse(predictions>0.41800000,1,0)  # classification based on 0.5 threshold
+(cm <- table("actual" = y, "predicted" = classes))  # confusion matrix
+
+tp <- sum(classes == "1" & y == "1")  # true positives
+tn <- sum(classes == "0"  & y == "0")  # true negatives
+fp <- sum(classes == "1" & y == "0")  # false positives
+fn <- sum(classes == "0"  & y == "1")  # false negatives
+(tpr <- tp / (tp + fn))  # sensitivity
+(tnr <- tn / (tn + fp))  # specificity
+
+plot(roc1 <- pROC::roc(test$Kebakaran, predictor = predictions))
+roc1
+auc(roc1)
