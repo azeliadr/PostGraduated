@@ -1,0 +1,27 @@
+# Response Curve
+
+mod_terms <- as.numeric(predict(rf, train, type = "terms"))
+mod_terms <- predict(rf, newdata = test, type = "terms")
+mod_prob <- data.frame(idx = 1:nrow(train), plogis(mod_terms + 
+                                                     attr(mod_terms, "constant")))
+mod_probg <- mod_prob %>% gather(variable, probability, -idx)
+test['idx'] <- 1:nrow(test) # Add index to data
+
+data_long <- melt(test, id = c("Kecelakaan_kerja","idx"))
+
+data_long[['value']] <- as.numeric(data_long[['value']])
+# Merge Testdata with predictions
+data_df <- merge(data_long, mod_probg, by = c("idx", "variable"))
+data_df <- data_df %>% arrange(variable, value) 
+
+data_continuous <- data_df %>% filter(., variable == "LST", variable == "NDVI") %>% 
+  transform(value = as.numeric(value)) %>% arrange(variable, value) 
+
+data_factor <- data_df %>% filter(., variable == "Slope", variable == "Elevasi", variable == "JenisTanah", variable == "Kerapatan Vegetasi", variable == "Aksesibilitas", 
+                                  variable == "CurahHujan", variable == "Suhu,", variable == "KecepatanAngin", variable == "IntensitasCahayaMatahari", variable == "Kelembapan", 
+                                  variable == "SatwaLiar", variable == "KondisiPohonTidakNormal") %>%
+  transform(value = as.factor(value))%>% 
+  arrange(idx) 
+
+ggplot(data_df, aes(x = value, y = probability)) + geom_point()+
+  facet_wrap(~variable, scales = "free_x") 
